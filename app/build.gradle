@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.ar.sceneform.plugin'
 
 android {
     compileSdkVersion 29
@@ -30,3 +31,9 @@ dependencies {
     implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.13.0'
 
 }
+
+
+sceneform.asset('sampledata/models/bear.fbx',
+        'default',
+        'sampledata/models/bear.sfa',
+        'src/main/res/raw/bear')
