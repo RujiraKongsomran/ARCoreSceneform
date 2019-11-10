@@ -1,17 +1,21 @@
 package com.rujira.arcoresceneform;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.math.Vector3;
+import com.google.ar.sceneform.rendering.Color;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ViewRenderable name_animal;
 
     int selected = 1; // Default Bear is choose
+    ViewRenderable animal_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupModel() {
+
+        ViewRenderable.builder()
+                .setView(this, R.layout.name_animal)
+                .build()
+                .thenAccept(renderable -> name_animal = renderable);
+
         ModelRenderable.builder()
                 .setSource(this, R.raw.bear)
                 .build().thenAccept(renderable -> bearRenderable = renderable)
@@ -176,7 +187,101 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             bear.setParent(anchorNode);
             bear.setRenderable(bearRenderable);
             bear.select();
+
+            addName(anchorNode, bear, "Bear");
         }
+        if (selected == 2) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(catRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Cat");
+        }
+        if (selected == 3) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(cowRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Cow");
+        }
+        if (selected == 4) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(dogRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Dog");
+        }
+        if (selected == 5) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(elephantRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Elephant");
+        }
+        if (selected == 6) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(ferretRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Ferret");
+        }
+        if (selected == 7) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(hippoRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Hippo");
+        }
+        if (selected == 8) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(horseRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Horse");
+        }
+        if (selected == 9) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(koalaRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Koala");
+        }
+        if (selected == 10) {
+            TransformableNode bear = new TransformableNode(arFragment.getTransformationSystem());
+            bear.setParent(anchorNode);
+            bear.setRenderable(lionRenderable);
+            bear.select();
+
+            addName(anchorNode, bear, "Lion");
+        }
+    }
+
+    private void addName(AnchorNode anchorNode, TransformableNode model, String name) {
+        TransformableNode nameView = new TransformableNode(arFragment.getTransformationSystem());
+        nameView.setLocalPosition(new Vector3(0f, model.getLocalPosition().y + 0.5f, 0));
+        nameView.setParent(anchorNode);
+        nameView.setRenderable(name_animal);
+        nameView.select();
+
+        // Set Text
+        TextView txt_name = (TextView) name_animal.getView();
+        txt_name.setText(name);
+
+        // Click to text view to remove animal
+        txt_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                anchorNode.setParent(null);
+            }
+        });
     }
 
     private void setClickListener() {
@@ -193,6 +298,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.bear) {
+            selected = 1;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.cat) {
+            selected = 2;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.cow) {
+            selected = 3;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.dog) {
+            selected = 4;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.elephant) {
+            selected = 5;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.ferret) {
+            selected = 6;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.hippopotamus) {
+            selected = 7;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.horse) {
+            selected = 8;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.koala_bear) {
+            selected = 9;
+            setBackgroud(view.getId());
+        } else if (view.getId() == R.id.lion) {
+            selected = 10;
+            setBackgroud(view.getId());
+        }
 
+
+    }
+
+    private void setBackgroud(int id) {
+        for (int i = 0; i < arrayView.length; i++) {
+            if (arrayView[i].getId() == id)
+                arrayView[i].setBackgroundColor(android.graphics.Color.parseColor("#80333639"));
+            else
+                arrayView[i].setBackgroundColor(ContextCompat.getColor(this,
+                        android.R.color.transparent));
+
+        }
     }
 }
